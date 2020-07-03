@@ -1,6 +1,6 @@
-package com.korzhueva.pokeapiclient.network
+package com.korzhueva.pokeapiclient.models
 
-class ListResponse (
+data class ListResponse (
     val count: Int,
     val next: String?,
     val previous: String?,

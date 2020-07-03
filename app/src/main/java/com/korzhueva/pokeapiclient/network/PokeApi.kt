@@ -1,6 +1,7 @@
 package com.korzhueva.pokeapiclient.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.korzhueva.pokeapiclient.models.PokeApiResponse
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -29,9 +30,9 @@ interface PokeApiService {
         @Query("offset") offset: Int = 0
     ): Deferred<PokeApiResponse>
 
-    @GET("pokemon/{num_path}")
+    @GET("pokemon/{id}")
     fun getPokemonInfo(
-        @Path("num_path") path: Int
+        @Path("id") id: Int
     )
 }
 
