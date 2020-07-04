@@ -1,13 +1,13 @@
 package com.korzhueva.pokeapiclient.models
 
 data class PokemonItem(
-    val id: Int,
-    val name: String,
-    val type: String,
-    val height: Int,
-    val weight: Int,
-    val attack: Int,
-    val defense: Int,
-    val hp: Int,
-    val sprite: String
+    val id: String = "",
+    val name: String  = "",
+    var type: String  = "",
+    var height: Int = 0,
+    var weight: Int = 0,
+    var attack: Int = 0,
+    var defense: Int = 0,
+    var hp: Int = 0,
+    var sprite: String? = ""
 )
