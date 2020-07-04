@@ -13,9 +13,6 @@ class PokemonRepository {
         itemsConverted = responseList.results.map {
             it.asDomainModel()
         }
-    }
-
-    suspend fun refreshPokemons(){
         itemsConverted.forEach {
             val responsePokemon = PokeApi.retrofitService.getPokemonInfo(it.id).await()
             it.type = responsePokemon.types[0].type.name
@@ -27,6 +24,4 @@ class PokemonRepository {
             it.sprite = responsePokemon.sprites.frontDefault
         }
     }
-
-
 }

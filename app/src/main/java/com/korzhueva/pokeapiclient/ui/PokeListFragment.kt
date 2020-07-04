@@ -26,10 +26,6 @@ class PokeListFragment : Fragment(){
 
         binding.viewModel = viewModel
 
-        viewModel.photoList.observe(viewLifecycleOwner, Observer {
-            viewModel.getPokemonsInfo()
-        })
-
         binding.photoGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener{
             // TODO: implement navigation
         })

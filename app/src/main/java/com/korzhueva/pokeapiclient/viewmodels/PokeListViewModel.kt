@@ -30,15 +30,6 @@ class PokeListViewModel : ViewModel() {
         }
     }
 
-    fun getPokemonsInfo() {
-        coroutineScope.launch {
-            if (_photoList.value != null) {
-                    pokemonRepository.refreshPokemons()
-            }
-        }
-    }
-
-
     override fun onCleared() {
         super.onCleared()
     }
