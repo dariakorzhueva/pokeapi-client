@@ -22,12 +22,26 @@ class PokeListViewModel : ViewModel() {
     val photoList: LiveData<List<PokemonItem>>
         get() = _photoList
 
+    private val _navigateToSelectedPokemon = MutableLiveData<PokemonItem>()
+
+    // The external immutable LiveData for the navigation property
+    val navigateToSelectedPokemon: LiveData<PokemonItem>
+        get() = _navigateToSelectedPokemon
+
     init {
         coroutineScope.launch {
             pokemonRepository.refreshData(0)
 
             _photoList.value = pokemonRepository.itemsConverted
         }
+    }
+
+    fun displayPropertyDetails(pokemon: PokemonItem) {
+        _navigateToSelectedPokemon.value = pokemon
+    }
+
+    fun displayPropertyDetailsComplete() {
+        _navigateToSelectedPokemon.value = null
     }
 
     override fun onCleared() {

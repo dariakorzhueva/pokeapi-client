@@ -1,5 +1,6 @@
 package com.korzhueva.pokeapiclient.repository
 
+import android.util.Log
 import com.korzhueva.pokeapiclient.models.PokemonItem
 import com.korzhueva.pokeapiclient.network.PokeApi
 import com.korzhueva.pokeapiclient.utils.asDomainModel
@@ -8,6 +9,7 @@ class PokemonRepository {
     lateinit var itemsConverted: List<PokemonItem>
 
     suspend fun refreshData(newOffset: Int) {
+        try{
         val responseList = PokeApi.retrofitService.getPokemonList(offset=newOffset).await()
 
         itemsConverted = responseList.results.map {
@@ -22,6 +24,10 @@ class PokemonRepository {
             it.defense = responsePokemon.stats[2].baseStat
             it.hp = responsePokemon.stats[0].baseStat
             it.sprite = responsePokemon.sprites.frontDefault
+        }
+        }
+        catch(e: Exception){
+            Log.d("PokeListFragmentEx","$e")
         }
     }
 }

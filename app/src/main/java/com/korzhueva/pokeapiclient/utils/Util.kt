@@ -1,5 +1,7 @@
 package com.korzhueva.pokeapiclient.utils
 
+import android.content.Context
+import android.net.ConnectivityManager
 import com.korzhueva.pokeapiclient.models.PokemonItem
 import com.korzhueva.pokeapiclient.models.PokemonLink
 
@@ -12,3 +14,4 @@ fun PokemonLink.asDomainModel(): PokemonItem {
         name = name.capitalize()
     )
 }
+

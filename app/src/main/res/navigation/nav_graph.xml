@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/pokeListFragment">
 
     <fragment
         android:id="@+id/pokeListFragment"
         android:name="com.korzhueva.pokeapiclient.ui.PokeListFragment"
-        android:label="PokeListFragment" />
+        android:label="PokeListFragment"
+        tools:layout="@layout/fragment_pokelist">
+        <action
+            android:id="@+id/action_showDetail"
+            app:destination="@id/pokemonDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pokemonDetailFragment"
+        android:name="com.korzhueva.pokeapiclient.ui.PokemonDetailFragment"
+        android:label="PokemonDetailFragment"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="selectedProperty"
+            app:argType="com.korzhueva.pokeapiclient.models.PokemonItem" />
+    </fragment>
 </navigation>

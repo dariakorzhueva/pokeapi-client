@@ -1,5 +1,6 @@
 package com.korzhueva.pokeapiclient.adapters
 
+import android.util.Log
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -11,8 +12,8 @@ import com.korzhueva.pokeapiclient.models.PokemonItem
 
 @BindingAdapter("pokeData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<PokemonItem>?) {
-    val adapter = recyclerView.adapter as PhotoGridAdapter
-    adapter.submitList(data)
+        val adapter = recyclerView.adapter as PhotoGridAdapter
+        adapter.submitList(data)
 }
 
 
