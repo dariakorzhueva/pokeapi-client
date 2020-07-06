@@ -11,9 +11,7 @@ import com.korzhueva.pokeapiclient.databinding.FragmentDetailBinding
 import com.korzhueva.pokeapiclient.viewmodels.PokemonDetailViewModel
 
 class PokemonDetailFragment: Fragment() {
-    private val viewModel : PokemonDetailViewModel by lazy{
-        ViewModelProviders.of(this).get(PokemonDetailViewModel::class.java)
-    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,7 +21,7 @@ class PokemonDetailFragment: Fragment() {
         val binding = FragmentDetailBinding.inflate(inflater)
         binding.setLifecycleOwner(this)
 
-        val pokemon = PokemonDetailFragmentArgs.fromBundle(requireArguments()).selectedProperty
+        val pokemon = PokemonDetailFragmentArgs.fromBundle(requireArguments()).selectedPokemon
         val viewModelFactory = PokemonDetailViewModelFactory(pokemon, application)
         binding.viewModel = ViewModelProviders.of(
             this, viewModelFactory).get(PokemonDetailViewModel::class.java)

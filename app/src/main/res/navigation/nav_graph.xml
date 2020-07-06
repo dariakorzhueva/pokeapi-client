@@ -20,7 +20,7 @@
         android:label="PokemonDetailFragment"
         tools:layout="@layout/fragment_detail">
         <argument
-            android:name="selectedProperty"
+            android:name="selectedPokemon"
             app:argType="com.korzhueva.pokeapiclient.models.PokemonItem" />
     </fragment>
 </navigation>

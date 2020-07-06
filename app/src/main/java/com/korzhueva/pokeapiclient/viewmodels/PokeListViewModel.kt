@@ -24,7 +24,6 @@ class PokeListViewModel : ViewModel() {
 
     private val _navigateToSelectedPokemon = MutableLiveData<PokemonItem>()
 
-    // The external immutable LiveData for the navigation property
     val navigateToSelectedPokemon: LiveData<PokemonItem>
         get() = _navigateToSelectedPokemon
 
@@ -36,11 +35,11 @@ class PokeListViewModel : ViewModel() {
         }
     }
 
-    fun displayPropertyDetails(pokemon: PokemonItem) {
+    fun displayPokemonDetails(pokemon: PokemonItem) {
         _navigateToSelectedPokemon.value = pokemon
     }
 
-    fun displayPropertyDetailsComplete() {
+    fun displayPokemonDetailsComplete() {
         _navigateToSelectedPokemon.value = null
     }
 

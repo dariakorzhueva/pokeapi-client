@@ -11,86 +11,93 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/pokemon_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:padding="5dp"
+            app:imageUrl="@{viewModel.selectedPokemon.sprite}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:padding="5dp"
+            app:layout_constraintVertical_bias="0.5"
             tools:src="@drawable/ic_broken_image" />
 
         <TextView
-            android:id="@+id/pokemon_weight"
+            android:id="@+id/pokemon_weight_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@+id/pokemon_height"
+            android:padding="2dp"
+            android:text="Weight: "
+            app:layout_constraintEnd_toStartOf="@+id/pokemon_height_tv"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pokemon_image"
-            android:text="Weight: "
             tools:text="Weight" />
 
         <TextView
-            android:id="@+id/pokemon_height"
+            android:id="@+id/pokemon_height_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@+id/pokemon_type"
-
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/pokemon_weight"
-            app:layout_constraintTop_toBottomOf="@id/pokemon_image"
+            android:padding="2dp"
             android:text="Height: "
+            app:layout_constraintEnd_toStartOf="@+id/pokemon_type_tv"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/pokemon_weight_tv"
+            app:layout_constraintTop_toBottomOf="@id/pokemon_image"
             tools:text="Height" />
 
         <TextView
-            android:id="@+id/pokemon_type"
+            android:id="@+id/pokemon_type_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:text="Type: "
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/pokemon_height"
+            app:layout_constraintStart_toEndOf="@+id/pokemon_height_tv"
             app:layout_constraintTop_toBottomOf="@id/pokemon_image"
-            android:text="Type: "
             tools:text="Type" />
 
         <TextView
-            android:id="@+id/pokemon_hp"
+            android:id="@+id/pokemon_hp_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/pokemon_weight"
-            app:layout_constraintEnd_toStartOf="@+id/pokemon_height"
+            android:padding="2dp"
+            android:text="HP: "
+            app:layout_constraintEnd_toStartOf="@+id/pokemon_height_tv"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="HP: "
+            app:layout_constraintTop_toBottomOf="@id/pokemon_weight_tv"
             tools:text="HP" />
 
         <TextView
-            android:id="@+id/pokemon_attack"
+            android:id="@+id/pokemon_attack_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@+id/pokemon_defense"
-            app:layout_constraintHorizontal_bias="0.583"
-            app:layout_constraintStart_toEndOf="@+id/pokemon_hp"
-            app:layout_constraintTop_toBottomOf="@id/pokemon_height"
+            android:padding="2dp"
             android:text="Attack: "
-            tools:text="Attack"/>
+            app:layout_constraintEnd_toStartOf="@+id/pokemon_defense_tv"
+            app:layout_constraintHorizontal_bias="0.608"
+            app:layout_constraintStart_toEndOf="@+id/pokemon_hp_tv"
+            app:layout_constraintTop_toBottomOf="@id/pokemon_height_tv"
+            tools:text="Attack" />
 
         <TextView
-            android:id="@+id/pokemon_defense"
+            android:id="@+id/pokemon_defense_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/pokemon_type"
+            android:padding="2dp"
+            android:text="Defense: "
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/pokemon_height"
-            android:text="Defense: "
-            tools:text="Defense"/>
+            app:layout_constraintStart_toEndOf="@+id/pokemon_height_tv"
+            app:layout_constraintTop_toBottomOf="@id/pokemon_type_tv"
+            tools:text="Defense" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

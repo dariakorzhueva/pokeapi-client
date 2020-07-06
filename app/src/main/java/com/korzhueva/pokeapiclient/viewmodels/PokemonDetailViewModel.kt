@@ -5,12 +5,12 @@ import androidx.lifecycle.*
 import com.korzhueva.pokeapiclient.models.PokemonItem
 
 class PokemonDetailViewModel(pokemon: PokemonItem, app: Application) : AndroidViewModel(app) {
-    private val _selectedProperty = MutableLiveData<PokemonItem>()
+    private val _selectedPokemon = MutableLiveData<PokemonItem>()
 
-    val selectedProperty: LiveData<PokemonItem>
-        get() = _selectedProperty
+    val selectedPokemon: LiveData<PokemonItem>
+        get() = _selectedPokemon
 
     init {
-        _selectedProperty.value = pokemon
+        _selectedPokemon.value = pokemon
     }
 }

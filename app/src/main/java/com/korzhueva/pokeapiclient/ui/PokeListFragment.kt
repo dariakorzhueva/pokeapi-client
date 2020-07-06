@@ -28,13 +28,13 @@ class PokeListFragment : Fragment(){
         binding.viewModel = viewModel
 
         binding.photoGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener{
-            viewModel.displayPropertyDetails(it)
+            viewModel.displayPokemonDetails(it)
         })
 
         viewModel.navigateToSelectedPokemon.observe(viewLifecycleOwner, Observer {
             if ( it != null ) {
                 this.findNavController().navigate(PokeListFragmentDirections.actionShowDetail(it))
-                viewModel.displayPropertyDetailsComplete()
+                viewModel.displayPokemonDetailsComplete()
             }
         })
 
