@@ -36,7 +36,8 @@
             app:text="@{item.name}"
             android:gravity="center"
             android:textAlignment="center"
-            tools:text="Pokemon name" />
+            tools:text="Pokemon name"
+            android:textColor="@color/textDark"/>
     </LinearLayout>
 
 </layout>
