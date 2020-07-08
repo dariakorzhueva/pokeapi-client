@@ -1,14 +1,15 @@
 package com.korzhueva.pokeapiclient.ui
 
+import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import com.korzhueva.pokeapiclient.databinding.FragmentDetailBinding
 import com.korzhueva.pokeapiclient.viewmodels.PokemonDetailViewModel
+
 
 class PokemonDetailFragment: Fragment() {
 

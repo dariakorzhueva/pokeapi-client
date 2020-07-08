@@ -1,9 +1,9 @@
 package com.korzhueva.pokeapiclient.ui
 
+import android.R
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.korzhueva.pokeapiclient.adapters.PhotoGridAdapter
 import com.korzhueva.pokeapiclient.databinding.FragmentPokelistBinding
 import com.korzhueva.pokeapiclient.viewmodels.PokeListViewModel
+
 
 class PokeListFragment : Fragment(){
     private val viewModel : PokeListViewModel by lazy{
@@ -38,6 +39,9 @@ class PokeListFragment : Fragment(){
             }
         })
 
+        setHasOptionsMenu(true)
+
         return binding.root
     }
+
 }
