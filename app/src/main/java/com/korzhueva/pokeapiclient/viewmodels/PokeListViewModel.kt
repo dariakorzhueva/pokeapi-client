@@ -3,20 +3,14 @@ package com.korzhueva.pokeapiclient.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.korzhueva.pokeapiclient.models.PokemonItem
 import com.korzhueva.pokeapiclient.repository.PokemonRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class PokeListViewModel : ViewModel() {
 
     private val pokemonRepository = PokemonRepository()
-
-    private var viewModelJob = Job()
-
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     private val _photoList = MutableLiveData<List<PokemonItem>>()
     val photoList: LiveData<List<PokemonItem>>
@@ -28,7 +22,7 @@ class PokeListViewModel : ViewModel() {
         get() = _navigateToSelectedPokemon
 
     init {
-        coroutineScope.launch {
+        viewModelScope.launch{
             pokemonRepository.refreshData(0)
 
             _photoList.value = pokemonRepository.itemsConverted
