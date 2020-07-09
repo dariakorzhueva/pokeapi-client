@@ -9,11 +9,10 @@ import com.korzhueva.pokeapiclient.repository.PokemonRepository
 import kotlinx.coroutines.launch
 
 class PokeListViewModel : ViewModel() {
-
     private val pokemonRepository = PokemonRepository()
 
-    private val _photoList = MutableLiveData<List<PokemonItem>>()
-    val photoList: LiveData<List<PokemonItem>>
+    private val _photoList = MutableLiveData<MutableList<PokemonItem>>()
+    val photoList: LiveData<MutableList<PokemonItem>>
         get() = _photoList
 
     private val _navigateToSelectedPokemon = MutableLiveData<PokemonItem>()
@@ -21,11 +20,24 @@ class PokeListViewModel : ViewModel() {
     val navigateToSelectedPokemon: LiveData<PokemonItem>
         get() = _navigateToSelectedPokemon
 
-    init {
-        viewModelScope.launch{
-            pokemonRepository.refreshData(0)
+    private var offset = 0
 
-            _photoList.value = pokemonRepository.itemsConverted
+    init {
+        viewModelScope.launch {
+            pokemonRepository.refreshData(offset)
+
+            _photoList.value = pokemonRepository.itemsConverted.toMutableList()
+        }
+    }
+
+    fun loadMore() {
+        offset += 30
+
+        viewModelScope.launch {
+            pokemonRepository.refreshData(offset)
+
+            _photoList.value!!.addAll(pokemonRepository.itemsConverted)
+
         }
     }
 

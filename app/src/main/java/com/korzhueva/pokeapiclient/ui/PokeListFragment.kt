@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.korzhueva.pokeapiclient.adapters.PhotoGridAdapter
 import com.korzhueva.pokeapiclient.databinding.FragmentPokelistBinding
 import com.korzhueva.pokeapiclient.viewmodels.PokeListViewModel
@@ -30,6 +31,20 @@ class PokeListFragment : Fragment(){
 
         binding.photoGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener{
             viewModel.displayPokemonDetails(it)
+        })
+
+        binding.photoGrid.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                viewModel.loadMore()
+
+                recyclerView.adapter!!.notifyDataSetChanged()
+            }
         })
 
         viewModel.navigateToSelectedPokemon.observe(viewLifecycleOwner, Observer {
