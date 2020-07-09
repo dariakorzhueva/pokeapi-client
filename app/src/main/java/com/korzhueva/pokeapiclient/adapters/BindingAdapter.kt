@@ -6,6 +6,7 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.korzhueva.pokeapiclient.R
 import com.korzhueva.pokeapiclient.models.PokemonItem
@@ -25,6 +26,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .load(imgUri)
             .apply(
                 RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.loading_animation)
                     .error(R.drawable.ic_broken_image))
             .into(imgView)

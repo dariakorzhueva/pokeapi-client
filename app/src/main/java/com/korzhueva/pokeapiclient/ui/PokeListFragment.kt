@@ -19,6 +19,8 @@ class PokeListFragment : Fragment(){
         ViewModelProviders.of(this).get(PokeListViewModel::class.java)
     }
 
+    private var countItems = 0
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,7 +45,9 @@ class PokeListFragment : Fragment(){
 
                 viewModel.loadMore()
 
-                recyclerView.adapter!!.notifyDataSetChanged()
+                countItems += 30
+
+                recyclerView.adapter!!.notifyItemChanged(countItems, (viewModel.photoList.value!!.size)!!.minus(1))
             }
         })
 
