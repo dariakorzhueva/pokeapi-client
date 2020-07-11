@@ -5,12 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.korzhueva.pokeapiclient.R
 import com.korzhueva.pokeapiclient.adapters.PhotoGridAdapter
 import com.korzhueva.pokeapiclient.databinding.FragmentPokelistBinding
 import com.korzhueva.pokeapiclient.viewmodels.PokeListViewModel
@@ -38,9 +40,9 @@ class PokeListFragment : Fragment() {
         })
 
         binding.fabRandom.setOnClickListener {
-            val count = viewModel.totalPokemonCount-1
+            val count = viewModel.totalPokemonCount - 12
             val randomOffset = (0..count).random()
-            
+
             viewModel.randomInitialization(randomOffset)
         }
 
@@ -76,6 +78,10 @@ class PokeListFragment : Fragment() {
                 viewModel.displayPokemonDetailsComplete()
             }
         })
+
+        val animationFadeIn = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
+        binding.statsCheckboxes.startAnimation(animationFadeIn)
+        binding.statsCheckboxes.visibility = View.VISIBLE
 
         setHasOptionsMenu(true)
 
