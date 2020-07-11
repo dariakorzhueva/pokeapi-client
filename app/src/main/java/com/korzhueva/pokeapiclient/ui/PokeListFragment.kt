@@ -1,6 +1,7 @@
 package com.korzhueva.pokeapiclient.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,13 @@ class PokeListFragment : Fragment() {
         binding.photoGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
             viewModel.displayPokemonDetails(it)
         })
+
+        binding.fabRandom.setOnClickListener {
+            val count = viewModel.totalPokemonCount-1
+            val randomOffset = (0..count).random()
+            
+            viewModel.randomInitialization(randomOffset)
+        }
 
         binding.photoGrid.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

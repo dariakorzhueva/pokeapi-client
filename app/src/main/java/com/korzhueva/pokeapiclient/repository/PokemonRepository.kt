@@ -9,10 +9,13 @@ import kotlinx.coroutines.withContext
 
 class PokemonRepository {
     lateinit var itemsConverted: List<PokemonItem>
+    var count: Int = 0
 
     suspend fun refreshData(newOffset: Int) {
         withContext(Dispatchers.IO) {
             val responseList = PokeApi.retrofitService.getPokemonList(offset = newOffset).await()
+
+            count = responseList.count
 
             itemsConverted = responseList.results.map {
                 it.asDomainModel()

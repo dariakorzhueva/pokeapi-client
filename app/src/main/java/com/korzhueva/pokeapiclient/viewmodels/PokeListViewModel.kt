@@ -28,9 +28,16 @@ class PokeListViewModel : ViewModel() {
     val isLoading: Boolean
         get() = _isLoading
 
+    private var _totalPokemonCount = 0
+    val totalPokemonCount: Int
+        get() = _totalPokemonCount
+
+
     init {
         viewModelScope.launch {
             pokemonRepository.refreshData(offset)
+
+            _totalPokemonCount = pokemonRepository.count
 
             _photoList.value = pokemonRepository.itemsConverted.toMutableList()
         }
@@ -38,8 +45,6 @@ class PokeListViewModel : ViewModel() {
 
     fun loadMore(adapter: PhotoGridAdapter, total: Int) {
         offset += 30
-
-        Log.d("loadMorePoke", "${_photoList.value!!.size}")
 
         viewModelScope.launch {
             _isLoading = true
@@ -64,6 +69,16 @@ class PokeListViewModel : ViewModel() {
 
     fun displayPokemonDetailsComplete() {
         _navigateToSelectedPokemon.value = null
+    }
+
+    fun randomInitialization(num: Int){
+        offset = num
+
+        viewModelScope.launch {
+            pokemonRepository.refreshData(offset)
+
+            _photoList.value = pokemonRepository.itemsConverted.toMutableList()
+        }
     }
 
     override fun onCleared() {
