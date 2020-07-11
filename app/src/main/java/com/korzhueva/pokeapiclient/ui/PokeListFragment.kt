@@ -1,7 +1,6 @@
 package com.korzhueva.pokeapiclient.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.korzhueva.pokeapiclient.adapters.PhotoGridAdapter
 import com.korzhueva.pokeapiclient.databinding.FragmentPokelistBinding
@@ -21,6 +19,8 @@ class PokeListFragment : Fragment() {
     private val viewModel: PokeListViewModel by lazy {
         ViewModelProviders.of(this).get(PokeListViewModel::class.java)
     }
+
+    private var isLoading = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,41 +37,29 @@ class PokeListFragment : Fragment() {
         })
 
         binding.photoGrid.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-            }
-
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                val gridLayoutManager = recyclerView.layoutManager as GridLayoutManager?
+                var layoutManager = recyclerView.layoutManager as GridLayoutManager
 
-                if (gridLayoutManager != null) {
-                    val visibleItemCount = gridLayoutManager.childCount
-                    val totalItemCount = gridLayoutManager.itemCount
-                    val pastVisiblesItems = gridLayoutManager.findFirstVisibleItemPosition()
+                var visibleItemCount = layoutManager.childCount
+                var totalItemCount = layoutManager.itemCount
+                var firstVisibleItems = layoutManager.findFirstVisibleItemPosition()
 
-                    Log.d("pokemooooon","$visibleItemCount $totalItemCount $pastVisiblesItems")
+                isLoading = viewModel.isLoading
 
-                    var countItems = 0
+                if (!isLoading) {
+                    if ((visibleItemCount + firstVisibleItems) >= totalItemCount - 18) {
+                        isLoading = true
 
-                    //TODO: fix scroll condition
+                        val adapter = recyclerView.adapter as PhotoGridAdapter
 
-                    if (pastVisiblesItems > countItems) {
-                        viewModel.loadMore()
+                        viewModel.loadMore(adapter, totalItemCount)
 
-                        countItems += 30
-
-                        recyclerView.adapter!!.notifyItemChanged(
-                            countItems,
-                            (viewModel.photoList.value!!.size)!!.minus(1)
-                        )
-
-                        countItems += 9
+                        isLoading = viewModel.isLoading
                     }
                 }
             }
-
         })
 
         viewModel.navigateToSelectedPokemon.observe(viewLifecycleOwner, Observer {
