@@ -79,32 +79,44 @@ class PokeListFragment : Fragment() {
         })
 
         binding.attackCheck.setOnClickListener {
-            val maxAttack = viewModel.photoList.value!!.maxBy { it.attack }
+            if(binding.attackCheck.isChecked) {
+                val maxAttack = viewModel.photoList.value!!.maxBy { it.attack }
 
-            if (maxAttack != null && maxAttack.id != (viewModel.photoList.value)!![0].id) {
-                (viewModel.photoList.value)!!.add(0, maxAttack)
+                if (maxAttack != null && maxAttack.id != (viewModel.photoList.value)!![0].id) {
+                    (viewModel.photoList.value)!!.add(0, maxAttack)
 
-                binding.photoGrid.adapter!!.notifyItemInserted(0)
+                    binding.photoGrid.adapter!!.notifyItemInserted(0)
+
+                    binding.photoGrid.smoothScrollToPosition(0)
+                }
             }
         }
 
         binding.defenseCheck.setOnClickListener {
-            val maxDefense = viewModel.photoList.value!!.maxBy { it.defense }
+            if(binding.defenseCheck.isChecked) {
+                val maxDefense = viewModel.photoList.value!!.maxBy { it.defense }
 
-            if (maxDefense != null && maxDefense.id != (viewModel.photoList.value)!![0].id) {
-                (viewModel.photoList.value)!!.add(0, maxDefense)
+                if (maxDefense != null && maxDefense.id != (viewModel.photoList.value)!![0].id) {
+                    (viewModel.photoList.value)!!.add(0, maxDefense)
 
-                binding.photoGrid.adapter!!.notifyItemInserted(0)
+                    binding.photoGrid.adapter!!.notifyItemInserted(0)
+
+                    binding.photoGrid.smoothScrollToPosition(0)
+                }
             }
         }
 
         binding.hpCheck.setOnClickListener {
-            val maxHp = viewModel.photoList.value!!.maxBy { it.hp }
+            if(binding.hpCheck.isChecked) {
+                val maxHp = viewModel.photoList.value!!.maxBy { it.hp }
 
-            if (maxHp != null && maxHp.id != (viewModel.photoList.value)!![0].id) {
-                (viewModel.photoList.value)!!.add(0, maxHp)
+                if (maxHp != null && maxHp.id != (viewModel.photoList.value)!![0].id) {
+                    (viewModel.photoList.value)!!.add(0, maxHp)
 
-                binding.photoGrid.adapter!!.notifyItemInserted(0)
+                    binding.photoGrid.adapter!!.notifyItemInserted(0)
+
+                    binding.photoGrid.smoothScrollToPosition(0)
+                }
             }
         }
 
