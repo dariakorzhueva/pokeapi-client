@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.CheckBox
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -23,6 +24,7 @@ class PokeListFragment : Fragment() {
     }
 
     private var isLoading = false
+    private lateinit var gridAdapter: PhotoGridAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +39,8 @@ class PokeListFragment : Fragment() {
         binding.photoGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
             viewModel.displayPokemonDetails(it)
         })
+
+        gridAdapter = binding.photoGrid.adapter as PhotoGridAdapter
 
         binding.fabRandom.setOnClickListener {
             val count = viewModel.totalPokemonCount - 12
@@ -79,45 +83,23 @@ class PokeListFragment : Fragment() {
         })
 
         binding.attackCheck.setOnClickListener {
-            if(binding.attackCheck.isChecked) {
-                val maxAttack = viewModel.photoList.value!!.maxBy { it.attack }
+            isCheckedStat(binding.attackCheck)
+            isCheckedStat(binding.defenseCheck)
+            isCheckedStat(binding.hpCheck)
 
-                if (maxAttack != null && maxAttack.id != (viewModel.photoList.value)!![0].id) {
-                    (viewModel.photoList.value)!!.add(0, maxAttack)
-
-                    binding.photoGrid.adapter!!.notifyItemInserted(0)
-
-                    binding.photoGrid.smoothScrollToPosition(0)
-                }
-            }
+            binding.photoGrid.smoothScrollToPosition(0)
         }
 
         binding.defenseCheck.setOnClickListener {
-            if(binding.defenseCheck.isChecked) {
-                val maxDefense = viewModel.photoList.value!!.maxBy { it.defense }
-
-                if (maxDefense != null && maxDefense.id != (viewModel.photoList.value)!![0].id) {
-                    (viewModel.photoList.value)!!.add(0, maxDefense)
-
-                    binding.photoGrid.adapter!!.notifyItemInserted(0)
-
-                    binding.photoGrid.smoothScrollToPosition(0)
-                }
-            }
+            isCheckedStat(binding.attackCheck)
+            isCheckedStat(binding.defenseCheck)
+            isCheckedStat(binding.hpCheck)
         }
 
         binding.hpCheck.setOnClickListener {
-            if(binding.hpCheck.isChecked) {
-                val maxHp = viewModel.photoList.value!!.maxBy { it.hp }
-
-                if (maxHp != null && maxHp.id != (viewModel.photoList.value)!![0].id) {
-                    (viewModel.photoList.value)!!.add(0, maxHp)
-
-                    binding.photoGrid.adapter!!.notifyItemInserted(0)
-
-                    binding.photoGrid.smoothScrollToPosition(0)
-                }
-            }
+            isCheckedStat(binding.attackCheck)
+            isCheckedStat(binding.defenseCheck)
+            isCheckedStat(binding.hpCheck)
         }
 
         viewModel.photoList.observe(viewLifecycleOwner, Observer {
@@ -133,4 +115,28 @@ class PokeListFragment : Fragment() {
         return binding.root
     }
 
+    private fun isCheckedStat(checkBox: CheckBox) {
+        when (checkBox.text) {
+            "Attack" -> findMaxStat(1)
+            "Defense" -> findMaxStat(2)
+            "HP" -> findMaxStat(3)
+            else -> return
+        }
+
+    }
+
+    private fun findMaxStat(flag: Int) {
+        val maxStat = when (flag) {
+            1 -> viewModel.photoList.value!!.maxBy { it.attack }
+            2 -> viewModel.photoList.value!!.maxBy { it.defense }
+            3 -> viewModel.photoList.value!!.maxBy { it.hp }
+            else -> null
+        }
+
+        if (maxStat != null && maxStat.id != (viewModel.photoList.value)!![0].id) {
+            (viewModel.photoList.value)!!.add(0, maxStat)
+
+            gridAdapter.notifyItemInserted(0)
+        }
+    }
 }
