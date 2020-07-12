@@ -17,7 +17,6 @@ import com.korzhueva.pokeapiclient.adapters.PhotoGridAdapter
 import com.korzhueva.pokeapiclient.databinding.FragmentPokelistBinding
 import com.korzhueva.pokeapiclient.viewmodels.PokeListViewModel
 
-
 class PokeListFragment : Fragment() {
     private val viewModel: PokeListViewModel by lazy {
         ViewModelProviders.of(this).get(PokeListViewModel::class.java)
@@ -79,9 +78,40 @@ class PokeListFragment : Fragment() {
             }
         })
 
-        val animationFadeIn = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
-        binding.statsCheckboxes.startAnimation(animationFadeIn)
-        binding.statsCheckboxes.visibility = View.VISIBLE
+        binding.attackCheck.setOnClickListener {
+            val maxAttack = viewModel.photoList.value!!.maxBy { it.attack }
+
+            if (maxAttack != null)
+                (viewModel.photoList.value)!!.add(0, maxAttack)
+
+            binding.photoGrid.adapter!!.notifyItemInserted(0)
+        }
+
+        binding.defenseCheck.setOnClickListener {
+            val maxDefense = viewModel.photoList.value!!.maxBy { it.defense }
+
+            if (maxDefense != null)
+                (viewModel.photoList.value)!!.add(0, maxDefense)
+
+            binding.photoGrid.adapter!!.notifyItemInserted(0)
+        }
+
+        binding.hpCheck.setOnClickListener {
+            val maxHp = viewModel.photoList.value!!.maxBy { it.hp }
+
+            if (maxHp != null)
+                (viewModel.photoList.value)!!.add(0, maxHp)
+
+            binding.photoGrid.adapter!!.notifyItemInserted(0)
+        }
+
+        viewModel.photoList.observe(viewLifecycleOwner, Observer {
+            if(it != null) {
+                val animationFadeIn = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
+                binding.statsCheckboxes.startAnimation(animationFadeIn)
+                binding.statsCheckboxes.visibility = View.VISIBLE
+            }
+        })
 
         setHasOptionsMenu(true)
 
