@@ -27,7 +27,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/photo_grid"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone">
             <CheckBox
                 android:id="@+id/attack_check"
                 android:layout_width="wrap_content"

@@ -82,6 +82,12 @@ class PokeListFragment : Fragment() {
             }
         })
 
+        viewModel.photoList.observe(viewLifecycleOwner,Observer{
+            if(it!= null){
+                binding.statsCheckboxes.visibility = View.VISIBLE
+            }
+        })
+
         binding.attackCheck.setOnClickListener {
             isCheckedStat(binding.attackCheck)
             isCheckedStat(binding.defenseCheck)
